@@ -39,8 +39,8 @@ public class Main {
             type = "?";
             pokemon1 = "Arceus";
         }
-        int atk = 100;
-        int hp = 60000;
+        int atk = 10;
+        int hp = 60;
         println("Now let's put your " + pokemon1 + " to the test!");
         println("\nBattle 1: Professor X");
         mode = 1;
