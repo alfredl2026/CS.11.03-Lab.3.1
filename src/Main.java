@@ -12,7 +12,7 @@ public class Main {
         int mode = 0;
         welcome(scanned);
         waitEnter();
-        println("You have an ambition of becoming the strongest trainer in this town, and today is your lucky day");
+        println("You have an ambition of becoming the strongest trainer in this town, and today is your lucky day.");
         waitEnter();
         println("I'll allow you to choose a starter pokemon now, which will be battling with you along your journey. Pick very wisely.");
         int starterPokemon;
@@ -49,7 +49,7 @@ public class Main {
             pokemon1 = "Torchic";
         }
         int atk = 10;
-        int hp = 60;
+        int hp = 6011;
         println("Now let's put your " + pokemon1 + " to the test!");
         waitEnter();
         println("\nBattle 1: Professor X");
@@ -346,20 +346,31 @@ public class Main {
         }
         else if(mode==2 && yourHP >= 0){
             println("You defeated Trainer A!");
+            waitEnter();
+            println("Trainer A: Good game! You are pretty strong, good luck with what comes next.");
+            waitEnter();
         }
         else if(mode==3 && yourHP >= 0){
             println("You defeated Trainer legendary!");
+            waitEnter();
+            println("Trainer legendary: Wow, you are quite good at this, that was a close battle!");
+            waitEnter();
+            println("It seems like there is 1 more person you need to fight - The CHAMPION.");
+            waitEnter();
         }
         else if(mode==4 && yourHP >= 0){
             println("You defeated the wild " + enemyPokemon + "!");
         }
         else if(mode==5 && yourHP >= 0){
             println("You defeated CHAMPION champion!");
+            waitEnter();
+            println("Good job. Since you defeated me, I will now give you the title of the champion.");
+            waitEnter();
             println("You did it, you defeated all the trainers and the champion! You have become THE CHAMPION.");
             endGame();
         }
         else {
-            println("You lost");
+            println("You lost. Better train yourself by exploring the wild before challenging the trainers first!");
             endGame();
         }
     }
