@@ -20,7 +20,7 @@ public class Main {
         println("Please enter a number (1/2/3)");
         starterPokemon = scanLine.nextInt();
         String pokemon1 = "";
-        String type = "";
+        String type = ""; //ended up not using type advantages because I don't think it will work well in this game since it is 1v1.
         int healPot = 1;
         int pokeBall = 0;
         if (starterPokemon == 1) {
