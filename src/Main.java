@@ -49,7 +49,7 @@ public class Main {
             pokemon1 = "Torchic";
         }
         int atk = 10;
-        int hp = 6011;
+        int hp = 60;
         println("Now let's put your " + pokemon1 + " to the test!");
         waitEnter();
         println("\nBattle 1: Professor X");
