@@ -319,8 +319,10 @@ public class Main {
                 println("2: Back");
                 int itemMove = scanLine.nextInt();
                 if (itemMove == 1 && healPot >= 1) {
-                    yourHP = yourHP + 5;
+                    yourHP = yourHP + 7;
                     healPot = healPot - 1;
+                    println(yourPokemon + " Healed" + " for " + 7 + " health!");
+                    waitEnter();
                 }
             }
             int enemyMove = randomMove.nextInt(3) + 1;
