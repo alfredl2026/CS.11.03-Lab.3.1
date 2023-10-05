@@ -364,7 +364,7 @@ public class Main {
         else if(mode==5 && yourHP >= 0){
             println("You defeated CHAMPION champion!");
             waitEnter();
-            println("Good job. Since you defeated me, I will now give you the title of the champion.");
+            println("CHAMPION Champion: Good job. Since you defeated me, I will now give you the title of the champion.");
             waitEnter();
             println("You did it, you defeated all the trainers and the champion! You have become THE CHAMPION.");
             endGame();
