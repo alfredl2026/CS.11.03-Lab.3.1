@@ -156,7 +156,9 @@ public class Main {
     }
     public static void startEncounter(String yourPokemon, String type, int healPot, int mode, int atk, int hp) {
         String[] possibleWild = {"Pikachu", "Eevee", "Jigglypuff", "Meowth", "Psyduck"};
+        String[] possibleWildMessage = {"You wander in the plains..", "You venture deep in a forest..", "You explore a treacherous cave..."};
         String enemyPokemon = "";
+        String wildMessage = "";
         int enemyHP = 0;
         int yourHP = hp;
         int enemyATK = 0;
@@ -164,7 +166,9 @@ public class Main {
         Random randomMove = new Random();
         Random critChance = new Random();
         Random wildEncounter = new Random();
+        Random wildMessageR = new Random();
         int randomWild = wildEncounter.nextInt(possibleWild.length);
+        int randomWildMessage = wildMessageR.nextInt(possibleWildMessage.length);
        if(mode == 1){
            enemyPokemon = "Bidoof";
            println("Professor X sent out Bidoof!");
@@ -191,6 +195,9 @@ public class Main {
         }
         if(mode == 4){
             enemyPokemon = possibleWild[randomWild];
+            wildMessage = possibleWildMessage[randomWildMessage];
+            println(wildMessage);
+            waitEnter();
             println("You encountered a wild " + enemyPokemon + "!");
             enemyHP = wildEncounter.nextInt((4) + 1) * (yourHP % wildEncounter.nextInt((10) + 1));
             enemyATK = wildEncounter.nextInt((2) + 1) * (yourHP % wildEncounter.nextInt((10) + 1));
