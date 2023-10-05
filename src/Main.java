@@ -1,16 +1,20 @@
 import java.util.Scanner;
 import java.util.Random;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        println("What is your name?");
+        note();
+        waitEnter();
+        askName();
         String scanned;
         Scanner scanLine = new Scanner(System.in);
         scanned = scanLine.next();
         int mode = 0;
-        println("Welcome, " + scanned + ", to the world of Pokemon. You can call me Professor X.");
-        println("You can now choose a starter pokemon, which will be battling with you along your journey.");
+        welcome(scanned);
+        waitEnter();
+        println("You have an ambition of becoming the strongest trainer in this town, and today is your lucky day");
+        waitEnter();
+        println("I'll allow you to choose a starter pokemon now, which will be battling with you along your journey. Pick very wisely.");
         int starterPokemon;
         println("1: Torchic" + " 2: Squirtle" + " 3: Bulbasaur");
         println("Please enter a number (1/2/3)");
@@ -24,35 +28,44 @@ public class Main {
             type = "Fire";
             pokemon1 = "Torchic";
         }
-        if (starterPokemon == 2) {
+        else if (starterPokemon == 2) {
             println("You selected Squirtle. (Water)");
             type = "Water";
             pokemon1 = "Squirtle";
         }
-        if (starterPokemon == 3) {
+        else if (starterPokemon == 3) {
             println("You selected Bulbasaur. (Grass)");
             type = "Grass";
             pokemon1 = "Bulbasaur";
         }
-        if (starterPokemon == 0) {
+        else if (starterPokemon == 0) {
             println("The Power of Arceus emerges...");
             type = "?";
             pokemon1 = "Arceus";
         }
+       else {
+           println("That doesn't exist, nice try. Torchic will be your buddy then. (Fire)");
+            type = "Fire";
+            pokemon1 = "Torchic";
+        }
         int atk = 10;
         int hp = 60;
         println("Now let's put your " + pokemon1 + " to the test!");
+        waitEnter();
         println("\nBattle 1: Professor X");
+        waitEnter();
         mode = 1;
         startEncounter(pokemon1, type, healPot, mode, atk, hp);
+        waitEnter();
         println("Wow, you are really good at this! Take 3 heal potions as your reward! \n(Items you have will reset each battle, so you don't have to worry about losing them after a battle.)");
         healPot = healPot + 3;
         println("Heal potion + 3");
-        println("Now you are ready to fight other trainers. You can explore the wild to level up or fight the trainers here. Good luck! (TYPE ANYTHING TO CONTINUE)");
-        scanned = scanLine.next();
+        waitEnter();
+        println("Now you are ready to fight other trainers. You can explore the wild to level up or fight the trainers here. Good luck!");
+        waitEnter();
         mode = 2;
         while (true) {
-            progress(pokemon1, type, healPot, mode, atk, hp);
+            mode = progress(pokemon1, type, healPot, mode, atk, hp);
         }
     }
     public static int progress(String yourPokemon, String type, int healPot, int mode, int atk, int hp){
@@ -62,13 +75,13 @@ public class Main {
         Scanner scanInt = new Scanner(System.in);
         scanned = scanInt.nextInt();
         if (scanned == 1){
-            mode = 4;
             startEncounter(yourPokemon, type, healPot, 4, atk, hp);
-            return 1;
+            return mode;
         }
         if (scanned == 2){
             if(mode == 2){
                 println("\nBattle 2: Trainer A");
+                waitEnter();
                 startEncounter(yourPokemon, type, healPot, 2, atk, hp);
                 if (pickUpgrade == 1){
                     atk = atk + 5;
@@ -82,9 +95,16 @@ public class Main {
                 return 3;
             }
             if(mode == 3){
-                println("\nBattle 3: Trainer legendary. THE FINAL BATTLE");
+                println("\nBattle 3: Trainer legendary.");
+                waitEnter();
                 startEncounter(yourPokemon, type, healPot, 3, atk, hp);
-                return 4;
+                return 5;
+            }
+            if(mode == 5){
+                println("\nBattle 4: CHAMPION champion. THE FINAL BATTLE");
+                waitEnter();
+                startEncounter(yourPokemon, type, healPot, 5, atk, hp);
+                return 6;
             }
         }
             return 0;
@@ -117,7 +137,25 @@ public class Main {
         }
         return 0;
     }
+    public static void waitEnter(){
+        Scanner scanLine = new Scanner(System.in);
+        scanLine.nextLine();
+    }
+    public static void endGame(){
+        System.exit(1);
+    }
+    public static void askName(){
+        println("What is your name?");
+    }
+    public static char note(){
+        println("Note: Please press Enter to proceed in any sort of events like dialogue and battles, like this for example.");
+        return 'a';
+    }
+    public static void welcome(String name){
+        println("Welcome, " + name + ", to the world of Pokemon. You can call me Professor X.");
+    }
     public static void startEncounter(String yourPokemon, String type, int healPot, int mode, int atk, int hp) {
+        String[] possibleWild = {"Pikachu", "Eevee", "Jigglypuff", "Meowth", "Psyduck"};
         String enemyPokemon = "";
         int enemyHP = 0;
         int yourHP = hp;
@@ -126,6 +164,7 @@ public class Main {
         Random randomMove = new Random();
         Random critChance = new Random();
         Random wildEncounter = new Random();
+        int randomWild = wildEncounter.nextInt(possibleWild.length);
        if(mode == 1){
            enemyPokemon = "Bidoof";
            println("Professor X sent out Bidoof!");
@@ -141,14 +180,26 @@ public class Main {
         if(mode == 3){
             enemyPokemon = "Rayquaza";
             println("Trainer legendary sent out Rayquaza!");
-            enemyHP = 100;
-            enemyATK = 10;
+            enemyHP = 100 / 1;
+            enemyATK = 20;
+        }
+        if(mode == 5){
+            enemyPokemon = "Arceus";
+            println("CHAMPION champion sent out Arceus!");
+            enemyHP = 220;
+            enemyATK = 25;
         }
         if(mode == 4){
-            enemyPokemon = "test";
+            enemyPokemon = possibleWild[randomWild];
             println("You encountered a wild " + enemyPokemon + "!");
-            enemyHP = wildEncounter.nextInt(50) + 40;;
-            enemyATK = wildEncounter.nextInt(20) + 10;;
+            enemyHP = wildEncounter.nextInt((4) + 1) * (yourHP % wildEncounter.nextInt((10) + 1));
+            enemyATK = wildEncounter.nextInt((2) + 1) * (yourHP % wildEncounter.nextInt((10) + 1));
+            if (enemyATK <= 1){
+                enemyATK = 1;
+            }
+            if (enemyHP <= 1){
+                enemyHP = 1;
+            }
         }
         int critCheck = 0;
         while (true) {
@@ -184,62 +235,74 @@ public class Main {
                     if(enemyATK >= 2){
                         enemyATK = enemyATK - 1;
                         println("The opponent " + enemyPokemon + "'s Attack is lowered by 1!");
+                        waitEnter();
                     }
                     else{
                         println("The opponent " + enemyPokemon + "'s Attack cannot be lowered any more!");
+                        waitEnter();
                     }
                 }
                 if (moveChoose == 2 && yourPokemon == "Torchic") {
                     critCheck = critChance.nextInt(5) + 1;
                     if (critCheck == 5){
-                        enemyHP = enemyHP - (yourATK + 10);
+                        enemyHP = enemyHP - (yourATK * 2);
                         println("CRITICAL HIT!");
-                        println(yourPokemon + " attacked " + enemyPokemon + " for " + (yourATK + 10)+ " damage!");
+                        println(yourPokemon + " attacked " + enemyPokemon + " for " + (yourATK * 2)+ " damage!");
+                        waitEnter();
                     }
                     else {
                         enemyHP = enemyHP - yourATK;
                         println(yourPokemon + " attacked " + enemyPokemon + " for " + yourATK+ " damage!");
+                        waitEnter();
                     }
                 }
                 if (moveChoose == 1 && yourPokemon == "Squirtle"){
                     critCheck = critChance.nextInt(5) + 1;
                     if (critCheck == 5){
-                        enemyHP = enemyHP - (yourATK + 10);
+                        enemyHP = enemyHP - (yourATK * 2);
                         println("CRITICAL HIT!");
-                        println(yourPokemon + " attacked " + enemyPokemon + " for " + (yourATK + 10)+ " damage!");
+                        println(yourPokemon + " attacked " + enemyPokemon + " for " + (yourATK * 2)+ " damage!");
+                        waitEnter();
                     }
                     else {
                         enemyHP = enemyHP - yourATK;
                         println(yourPokemon + " attacked " + enemyPokemon + " for " + yourATK+ " damage!");
+                        waitEnter();
                     }
                 }
                 if (moveChoose == 2 && yourPokemon == "Squirtle") {
                     if(enemyATK >= 2){
                         enemyATK = enemyATK - 1;
                         println("The opponent " + enemyPokemon + "'s Attack is lowered by 1!");
+                        waitEnter();
                     }
                     else{
                         println("The opponent " + enemyPokemon + "'s Attack cannot be lowered any more!");
+                        waitEnter();
                     }
                 }
                 if (moveChoose == 1 && yourPokemon == "Bulbasaur"){
                     critCheck = critChance.nextInt(5) + 1;
                     if (critCheck == 5){
-                        enemyHP = enemyHP - (yourATK + 10);
+                        enemyHP = enemyHP - (yourATK * 2);
                         println("CRITICAL HIT!");
-                        println(yourPokemon + " attacked " + enemyPokemon + " for " + (yourATK + 10)+ " damage!");
+                        println(yourPokemon + " attacked " + enemyPokemon + " for " + (yourATK * 2)+ " damage!");
+                        waitEnter();
                     }
                     else {
                         enemyHP = enemyHP - yourATK;
                         println(yourPokemon + " attacked " + enemyPokemon + " for " + yourATK+ " damage!");
+                        waitEnter();
                     }
                 }
                 if (moveChoose == 2 && yourPokemon == "Bulbasaur") {
                     yourATK = yourATK + 1;
                     println("Your " + yourPokemon + "'s Attack is raised by 1!");
+                    waitEnter();
                 }
                 if (moveChoose == 1 && yourPokemon == "Arceus") {
                     println("ARCEUS USED WIN!");
+                    waitEnter();
                     break;
                 }
             }
@@ -256,12 +319,23 @@ public class Main {
             int enemyMove = randomMove.nextInt(3) + 1;
             int healRandom = randomMove.nextInt(5) + 2;
             if(enemyMove == 1 || enemyMove == 2){
-                println(enemyPokemon + " attacked your " + yourPokemon + " for " + enemyATK + " damage!");
-                yourHP = yourHP - enemyATK;
+                critCheck = critChance.nextInt(5) + 1;
+                if (critCheck == 5){
+                    yourHP = yourHP - (enemyATK * 2);
+                    println("CRITICAL HIT!");
+                    println(enemyPokemon + " attacked " + yourPokemon + " for " + (enemyATK * 2)+ " damage!");
+                    waitEnter();
+                }
+                else{
+                    println(enemyPokemon + " attacked your " + yourPokemon + " for " + enemyATK + " damage!");
+                    yourHP = yourHP - enemyATK;
+                    waitEnter();
+                }
             }
             else if(enemyMove == 3){
                 println(enemyPokemon + " Healed" + " for " + healRandom + " health!");
                 enemyHP = enemyHP + healRandom;
+                waitEnter();
             }
             if(enemyHP <= 0 || yourHP <= 0) {
                 break;
@@ -275,14 +349,18 @@ public class Main {
         }
         else if(mode==3 && yourHP >= 0){
             println("You defeated Trainer legendary!");
-            println("YOU WIN!");
         }
         else if(mode==4 && yourHP >= 0){
             println("You defeated the wild " + enemyPokemon + "!");
         }
+        else if(mode==5 && yourHP >= 0){
+            println("You defeated CHAMPION champion!");
+            println("You did it, you defeated all the trainers and the champion! You have become THE CHAMPION.");
+            endGame();
+        }
         else {
-            println("You died");
-            System.exit(0);
+            println("You lost");
+            endGame();
         }
     }
 }
