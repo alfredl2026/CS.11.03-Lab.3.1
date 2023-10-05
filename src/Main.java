@@ -199,8 +199,8 @@ public class Main {
             println(wildMessage);
             waitEnter();
             println("You encountered a wild " + enemyPokemon + "!");
-            enemyHP = wildEncounter.nextInt((4) + 1) * (yourHP % wildEncounter.nextInt((10) + 1));
-            enemyATK = wildEncounter.nextInt((2) + 1) * (yourHP % wildEncounter.nextInt((10) + 1));
+            enemyHP = wildEncounter.nextInt((4) + 1) + (yourHP % 10);
+            enemyATK = wildEncounter.nextInt((2) + 1) + (yourHP % 10);
             if (enemyATK <= 1){
                 enemyATK = 1;
             }
